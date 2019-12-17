@@ -1,4 +1,4 @@
-import BlueInkEmbed, {BlueInkEmbedError, EVENT, IFRAME_CLASSNAME, PUBLIC_API_KEY_PARAM} from "./embed";
+import BlueInkEmbed, {BlueInkEmbedError, IFRAME_CLASSNAME, PUBLIC_API_KEY_PARAM} from "./embed";
 
 const FAKE_PUBLIC_API_KEY = 'public_abcd1234567890abcd1234567890abcd1234567890abcd1234567890abcd1234'
 
@@ -189,7 +189,7 @@ describe('BlueInkEmbed events', () => {
     }
 
     test('listeners called when message is received from embedded iFrame', (done) => {
-        embed.on(EVENT.COMPLETE, () => {
+        embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
             // this will fail if done() is not called
             done();
         });
@@ -197,12 +197,12 @@ describe('BlueInkEmbed events', () => {
         document.body.innerHTML = '<div id="iframe-container"></div>';
         embed.mount(FAKE_EMBED_URL, '#iframe-container');
 
-        postMessageFromFrame(embed, window, {eventType: EVENT.COMPLETE});
+        postMessageFromFrame(embed, window, {eventType: BlueInkEmbed.EVENT.COMPLETE});
     });
 
     test('ANY listener is called for all message types', (done) => {
-        embed.on(EVENT.ANY, (eventType, eventData) => {
-            expect(eventType).toEqual(EVENT.ERROR);
+        embed.on(BlueInkEmbed.EVENT.ANY, (eventType, eventData) => {
+            expect(eventType).toEqual(BlueInkEmbed.EVENT.ERROR);
             expect(eventData.message).toEqual('error occurred');
             done();
         });
@@ -210,6 +210,6 @@ describe('BlueInkEmbed events', () => {
         document.body.innerHTML = '<div id="iframe-container"></div>';
         embed.mount(FAKE_EMBED_URL, '#iframe-container');
 
-        postMessageFromFrame(embed, window, {eventType: EVENT.ERROR, message: 'error occurred'});
+        postMessageFromFrame(embed, window, {eventType: BlueInkEmbed.EVENT.ERROR, message: 'error occurred'});
     });
 });
