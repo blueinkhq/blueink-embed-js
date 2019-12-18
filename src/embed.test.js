@@ -119,6 +119,10 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(() => {
             embed.mount(FAKE_EMBED_URL, '#iframe-container')
         }).toThrow(BlueInkEmbedError);
+
+        expect(() => {
+            embed.mount(FAKE_EMBED_URL, '#iframe-container')
+        }).toThrow(BlueInkEmbed.Error);
     });
 
     test('mount into non-existent container throws BlueInkEmbedError', () => {
@@ -146,6 +150,10 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(() => {
             embed.mount(FAKE_EMBED_URL, '.repeated-container')
         }).toThrow(BlueInkEmbedError);
+
+        expect(() => {
+            embed.mount(FAKE_EMBED_URL, '.repeated-container')
+        }).toThrow(BlueInkEmbed.Error);
     });
 
 });

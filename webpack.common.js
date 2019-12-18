@@ -1,10 +1,13 @@
 const path = require('path');
 
-const config = {
+module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'blueink-embed.js'
+        filename: 'blueink-embed.js',
+        library: 'BlueInkEmbed',
+        libraryExport: 'default',
+        libraryTarget: 'umd',
     },
     resolve: {
         modules: [
@@ -19,17 +22,4 @@ const config = {
             { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
         ],
     }
-};
-
-module.exports = (env, argv) => {
-    if (argv.mode === 'development') {
-        config.devtool = 'source-map';
-    }
-
-    if (!argv.mode || argv.mode === 'production') {
-        config.mode = 'production';
-        config.output.filename = 'blueink-embed.min.js';
-    }
-
-    return config;
 };

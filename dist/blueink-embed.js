@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["blueink"] = factory();
+	else
+		root["blueink"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -2848,6 +2858,8 @@ _defineProperty(BlueInkEmbed, "_mounted", false);
 
 _defineProperty(BlueInkEmbed, "EVENT", BLUEINK_EVENT);
 
+_defineProperty(BlueInkEmbed, "Error", BlueInkEmbedError);
+
 /* harmony default export */ __webpack_exports__["default"] = (BlueInkEmbed);
 
 /***/ }),
@@ -2856,23 +2868,20 @@ _defineProperty(BlueInkEmbed, "EVENT", BLUEINK_EVENT);
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: BlueInkEmbedError, default */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var embed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! embed */ "./src/embed.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BlueInkEmbedError", function() { return embed__WEBPACK_IMPORTED_MODULE_0__["BlueInkEmbedError"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return embed__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-/* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styles.css */ "./css/styles.css");
-/* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styles_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styles.css */ "./css/styles.css");
+/* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styles_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var embed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! embed */ "./src/embed.js");
 
 
-
+/* harmony default export */ __webpack_exports__["default"] = (embed__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
+});
 //# sourceMappingURL=blueink-embed.js.map

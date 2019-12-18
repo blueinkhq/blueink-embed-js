@@ -1,7 +1,4 @@
-import BlueInkEmbed, { BlueInkEmbedError } from 'embed';
 import 'styles.css';
+import BlueInkEmbed from 'embed';
 
-export {
-    BlueInkEmbedError,
-    BlueInkEmbed as default,
-};
+export default BlueInkEmbed;

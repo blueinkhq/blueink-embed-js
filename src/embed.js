@@ -8,15 +8,15 @@ export const IFRAME_CLASSNAME = 'blueink-sig-iframe';
 
 /**
  * Event types that can be emitted by BlueInkEmbed. These can be accessed
- * as a static variable on the BlueInkEmbed class, like BlueInkEmbed.EVENT.COMPLETE, etc.
+ * as a static variable on the BlueInkEmbed class, like EVENT.COMPLETE, etc.
  * @example
  *  embed = new BlueInkEmbed(myPublicAPIKey);
- *  embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
+ *  embed.on(EVENT.COMPLETE, () => {
  *   console.log('signing complete!'))
  *  });
  * @example
  *  embed = new BlueInkEmbed(myPublicAPIKey);
- *  embed.on(BlueInkEmbed.EVENT.ERROR, (eventData) => {
+ *  embed.on(EVENT.ERROR, (eventData) => {
  *   console.log('Signing error occurred.'))
  *   console.log('.'))
  *  });
@@ -30,7 +30,7 @@ export const IFRAME_CLASSNAME = 'blueink-sig-iframe';
  *  AUTH_SUCCESS: string
  * }}s
  */
-export const BLUEINK_EVENT = {
+export const EVENT = {
     /** Any event occurred. Use this if you want to listen for all events with a single callback.s */
     ANY: 'any',
     /** The initial load of the iFrame content is complete. Note, the documents may not yet be ready to sign. */
@@ -82,7 +82,8 @@ class BlueInkEmbed extends EventEmitter {
     _iFrameOrigin = null;
     _publicAPIKey = null;
 
-    static EVENT = BLUEINK_EVENT;
+    static EVENT = EVENT;
+    static Error = BlueInkEmbedError;
 
     /**
      * Create a new BlueInkEmbed object
@@ -115,22 +116,19 @@ class BlueInkEmbed extends EventEmitter {
 
     /** @method on
      * Register a listener for events that occur in the embedded iFrame
-     * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-     *  BlueInkEmbed.EVENT.READY, etc.
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
      * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invoked when the event occurs.
      */
 
     /** @method off
      * Remove a previously registered event listener
-     * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-     *  BlueInkEmbed.EVENT.READY, etc.
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
      * @param {BlueInkEmbed~eventCallback} callback - The callback function to remove
      */
 
     /** @method once
      * Register a listener for a single occurrence of an event
-     * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-     *  BlueInkEmbed.EVENT.READY, etc.
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
      * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invokeds
      */
 
@@ -249,13 +247,13 @@ class BlueInkEmbed extends EventEmitter {
             return;
         }
 
-        if (!Object.values(BLUEINK_EVENT).includes(eventType)) {
+        if (!Object.values(EVENT).includes(eventType)) {
             this._debug(`Received message with unknown eventType "${eventType}". Silently dropping.`);
             return;
         }
 
         this.emit(eventType, event.data);
-        this.emit(BLUEINK_EVENT.ANY, eventType, event.data);
+        this.emit(EVENT.ANY, eventType, event.data);
     };
 
     /**
@@ -318,8 +316,7 @@ class BlueInkEmbed extends EventEmitter {
 /**
  * An event payload for an error event
  * @typedef {Object} EventAnyData
- * @property {string} eventType - The type of the event. One of BlueInkEmbed.EVENT.COMPLETE,
- *  BlueInkEmbed.EVENT.READY, etc.
+ * @property {string} eventType - The type of the event. One of EVENT.COMPLETE, EVENT.READY, etc.
  * @property {EventErrorData|null} eventData - Additional data for the event, or null.
  */
 
