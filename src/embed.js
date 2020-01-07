@@ -54,6 +54,7 @@ const ALLOWED_MOUNT_OPTIONS = [
     'isTest',
     'locale',
     'redirectURL',
+    'replace',
 ];
 
 /**
@@ -147,6 +148,8 @@ class BlueInkEmbed extends EventEmitter {
      * @param {string} options.locale - set the initial language / locale for the embedded signature iFrame
      * @param {string} options.redirectURL - If provided, the parent page (not the iFrame) will be redirected
      *   to this URL upon successful completion of a signing
+     * @param {string} options.replace - If true, the signing iFrame replaces the contents of container, instead
+     *   of being appended to the contents
      * @throws {BlueInkEmbedError} - when (1) there is already a mounted BlueInkEmbed iFrame instance,
      *  (2) the container element does not exist, or (3) the container selector corresponds to more than one element.
      */
@@ -181,7 +184,12 @@ class BlueInkEmbed extends EventEmitter {
 
         const processedURL = this._buildFinalURL(embeddedSigningURL, cleanOptions);
         this._iFrameEl = this._createIframe(processedURL, IFRAME_CLASSNAME);
+
+        if (options.replace) {
+            this._containerEl.innerHTML = '';
+        }
         this._containerEl.appendChild(this._iFrameEl);
+
         this.registerMessageListener();
         BlueInkEmbed._mounted = true;
 

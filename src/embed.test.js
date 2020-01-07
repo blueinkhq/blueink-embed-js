@@ -77,6 +77,23 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(document.querySelectorAll(`.${IFRAME_CLASSNAME}`).length).toEqual(0);
     });
 
+    test('mount with replace then unmount', () => {
+        document.body.innerHTML = '<div id="iframe-container"><p>Some</p><p>Text</p></div>';
+
+        const containerEl = document.getElementById('iframe-container');
+        expect(containerEl.children.length).toEqual(2);
+
+        embed.mount(FAKE_EMBED_URL, '#iframe-container', { replace: true });
+
+        // Children are replaced with the iFrame
+        expect(containerEl.children.length).toEqual(1);
+        const iFrameNodes = document.querySelectorAll(`.${IFRAME_CLASSNAME}`);
+        expect(iFrameNodes.length).toEqual(1);
+
+        embed.unmount();
+        expect(document.querySelectorAll(`.${IFRAME_CLASSNAME}`).length).toEqual(0);
+    });
+
     test('mount with no container selector appends to body', () => {
         embed.mount(FAKE_EMBED_URL);
 
