@@ -50,6 +50,7 @@ export const EVENT = {
 const MIN_PUBLIC_API_KEY_LENGTH = 71;
 const PUBLIC_API_KEY_PREFIX = 'public_';
 const ALLOWED_MOUNT_OPTIONS = [
+    'class',
     'debug',
     'isTest',
     'locale',
@@ -183,7 +184,8 @@ class BlueInkEmbed extends EventEmitter {
         this._iFrameOrigin = this._extractOrigin(embeddedSigningURL);
 
         const processedURL = this._buildFinalURL(embeddedSigningURL, cleanOptions);
-        this._iFrameEl = this._createIframe(processedURL, IFRAME_CLASSNAME);
+        const className = cleanOptions.className || IFRAME_CLASSNAME;
+        this._iFrameEl = this._createIframe(processedURL, className);
 
         if (options.replace) {
             this._containerEl.innerHTML = '';
