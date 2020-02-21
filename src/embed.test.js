@@ -1,10 +1,7 @@
 import BlueInkEmbed, {BlueInkEmbedError, IFRAME_CLASSNAME, PUBLIC_API_KEY_PARAM} from "./embed";
 
-const FAKE_PUBLIC_API_KEY = 'public_abcd1234567890abcd1234567890abcd1234567890abcd1234567890abcd1234'
-
-const FAKE_EMBED_URL = 'https://secure.blueink.com/embed/' +
-    'ABCDE1234567890iLCJhbGciOiJIUzI1NiJ9.abcXYZVnIjoiUE15S2NzUndwWSIsImV4cCI6MTU3MTI4NDM5MH0' +
-    '.abcde54321kFikzBzLDcy5APKAb-VaIGOD8StgBI2lE';
+const FAKE_PUBLIC_API_KEY = 'public_abcd1234567890abcd1234567890abcd123';
+const FAKE_EMBED_URL = 'https://secure.blueink.com/embed/abcd1234/abcd1234yVhL3bALas9UJSLINMc9F1zeBJw';
 
 
 describe('BlueInkEmbed helper methods', () => {
@@ -77,6 +74,23 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(document.querySelectorAll(`.${IFRAME_CLASSNAME}`).length).toEqual(0);
     });
 
+    test('mount with replace then unmount', () => {
+        document.body.innerHTML = '<div id="iframe-container"><p>Some</p><p>Text</p></div>';
+
+        const containerEl = document.getElementById('iframe-container');
+        expect(containerEl.children.length).toEqual(2);
+
+        embed.mount(FAKE_EMBED_URL, '#iframe-container', { replace: true });
+
+        // Children are replaced with the iFrame
+        expect(containerEl.children.length).toEqual(1);
+        const iFrameNodes = document.querySelectorAll(`.${IFRAME_CLASSNAME}`);
+        expect(iFrameNodes.length).toEqual(1);
+
+        embed.unmount();
+        expect(document.querySelectorAll(`.${IFRAME_CLASSNAME}`).length).toEqual(0);
+    });
+
     test('mount with no container selector appends to body', () => {
         embed.mount(FAKE_EMBED_URL);
 
@@ -119,6 +133,10 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(() => {
             embed.mount(FAKE_EMBED_URL, '#iframe-container')
         }).toThrow(BlueInkEmbedError);
+
+        expect(() => {
+            embed.mount(FAKE_EMBED_URL, '#iframe-container')
+        }).toThrow(BlueInkEmbed.Error);
     });
 
     test('mount into non-existent container throws BlueInkEmbedError', () => {
@@ -146,6 +164,10 @@ describe('BlueInkEmbed mount and unmount', () => {
         expect(() => {
             embed.mount(FAKE_EMBED_URL, '.repeated-container')
         }).toThrow(BlueInkEmbedError);
+
+        expect(() => {
+            embed.mount(FAKE_EMBED_URL, '.repeated-container')
+        }).toThrow(BlueInkEmbed.Error);
     });
 
 });
