@@ -47,7 +47,7 @@ export const EVENT = {
     ERROR: 'error',
 };
 
-const MIN_PUBLIC_API_KEY_LENGTH = 71;
+const MIN_PUBLIC_API_KEY_LENGTH = 40;
 const PUBLIC_API_KEY_PREFIX = 'public_';
 const ALLOWED_MOUNT_OPTIONS = [
     'class',

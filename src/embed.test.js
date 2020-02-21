@@ -1,10 +1,7 @@
 import BlueInkEmbed, {BlueInkEmbedError, IFRAME_CLASSNAME, PUBLIC_API_KEY_PARAM} from "./embed";
 
-const FAKE_PUBLIC_API_KEY = 'public_abcd1234567890abcd1234567890abcd1234567890abcd1234567890abcd1234'
-
-const FAKE_EMBED_URL = 'https://secure.blueink.com/embed/' +
-    'ABCDE1234567890iLCJhbGciOiJIUzI1NiJ9.abcXYZVnIjoiUE15S2NzUndwWSIsImV4cCI6MTU3MTI4NDM5MH0' +
-    '.abcde54321kFikzBzLDcy5APKAb-VaIGOD8StgBI2lE';
+const FAKE_PUBLIC_API_KEY = 'public_abcd1234567890abcd1234567890abcd123';
+const FAKE_EMBED_URL = 'https://secure.blueink.com/embed/abcd1234/abcd1234yVhL3bALas9UJSLINMc9F1zeBJw';
 
 
 describe('BlueInkEmbed helper methods', () => {
