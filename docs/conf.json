@@ -1,0 +1,15 @@
+{
+  "templates": {
+    "systemName": "BlueInk Embed JS",
+    "copyright": "Copyright BlueInk Technologies Inc",
+    "includeDate": false,
+    "navType": "vertical",
+    "theme": "cosmo",
+    "linenums": true,
+    "collapseSymbols": false,
+    "inverseNav": false,
+    "outputSourceFiles": true,
+    "syntaxTheme": "dark",
+    "sort": false
+  }
+}

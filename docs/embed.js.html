@@ -1,4 +1,83 @@
-import EventEmitter from "eventemitter3";
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>BlueInk Embed JS Source: embed.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">BlueInk Embed JS</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="BlueInkEmbedError.html">BlueInkEmbedError</a></li><li><a href="BlueInkEmbed.html">BlueInkEmbed</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#EVENT">EVENT</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: embed.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">import EventEmitter from "eventemitter3";
 import isPlainObject from 'lodash.isplainobject';
 import pick from 'lodash.pick';
 import qs from 'qs';
@@ -96,7 +175,7 @@ class BlueInkEmbed extends EventEmitter {
             throw new TypeError('publicAPIKey must be provided.')
         }
 
-        if (publicAPIKey.length < MIN_PUBLIC_API_KEY_LENGTH) {
+        if (publicAPIKey.length &lt; MIN_PUBLIC_API_KEY_LENGTH) {
             throw new TypeError(
                 'publicAPIKey is too short. Please verify you are using a valid BlueInk public API key.'
             );
@@ -118,7 +197,7 @@ class BlueInkEmbed extends EventEmitter {
      * @param {string} container - the css selector of the container into which the embedded signing iFrame
      *  will be injected
      * @param {string} embeddedSigningURL - the embedded signing URL, as returned by an API call to
-     *  /packets/<packet_id>/embed_url/
+     *  /packets/&lt;packet_id>/embed_url/
      * @param {object} options - optional arguments
      * @param {boolean} options.debug - if true, additional information will be printed to the console
      *  and displayed in the iFrame (if there is an error)
@@ -224,12 +303,12 @@ class BlueInkEmbed extends EventEmitter {
             return;
         }
 
-        if (this._iFrameEl && (event.source !== this._iFrameEl.contentWindow)) {
+        if (this._iFrameEl &amp;&amp; (event.source !== this._iFrameEl.contentWindow)) {
             this._debug('Received message with correct origin but wrong source. Silently dropping.', event.data);
             return;
         }
 
-        const eventType = event.data && event.data.eventType;
+        const eventType = event.data &amp;&amp; event.data.eventType;
 
         if (!eventType) {
             this._debug('Received message with no eventType. Silently dropping.');
@@ -248,7 +327,7 @@ class BlueInkEmbed extends EventEmitter {
     /**
      * Create a URL suitable to be used as the embedded iFrame src, by querystring parameters
      * @param {string} embeddedSigningURL - the embedded signing URL, as returned by a BlueInk
-     *  API v2 call to /packet/<packet_id>/embed_url/
+     *  API v2 call to /packet/&lt;packet_id>/embed_url/
      * @param {object} options - options, as passed into mount()
      * @returns {string} a URL with querystring parameters which can be used as the src of the embedded iFrame
      * @private
@@ -338,4 +417,138 @@ class BlueInkEmbed extends EventEmitter {
  * @param {EventAnyData|EventErrorData|null} eventData - depending on the event type
  */
 
-export default BlueInkEmbed;
+export default BlueInkEmbed;</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Copyright BlueInk Technologies Inc
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
