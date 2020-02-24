@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["blueink"] = factory();
+		exports["BlueInkEmbed"] = factory();
 	else
-		root["blueink"] = factory();
+		root["BlueInkEmbed"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -2430,14 +2430,14 @@ module.exports = g;
 /*!**********************!*\
   !*** ./src/embed.js ***!
   \**********************/
-/*! exports provided: PUBLIC_API_KEY_PARAM, IFRAME_CLASSNAME, BLUEINK_EVENT, BlueInkEmbedError, default */
+/*! exports provided: PUBLIC_API_KEY_PARAM, IFRAME_CLASSNAME, EVENT, BlueInkEmbedError, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUBLIC_API_KEY_PARAM", function() { return PUBLIC_API_KEY_PARAM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IFRAME_CLASSNAME", function() { return IFRAME_CLASSNAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BLUEINK_EVENT", function() { return BLUEINK_EVENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EVENT", function() { return EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BlueInkEmbedError", function() { return BlueInkEmbedError; });
 /* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! eventemitter3 */ "./node_modules/eventemitter3/index.js");
 /* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(eventemitter3__WEBPACK_IMPORTED_MODULE_0__);
@@ -2486,55 +2486,51 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 var PUBLIC_API_KEY_PARAM = 'publicAPIKey';
 var IFRAME_CLASSNAME = 'blueink-sig-iframe';
 /**
- * Event types that can be emitted by BlueInkEmbed. These can be accessed
- * as a static variable on the BlueInkEmbed class, like BlueInkEmbed.EVENT.COMPLETE, etc.
+ * Event types that can be emitted by BlueInkEmbed.
+ * These can be accessed via the BlueInkEmbed class, e.g. BlueInkEmbed.EVENT.COMPLETE, etc.
+ * @readonly
+ * @enum {string}
+ *
  * @example
- *  embed = new BlueInkEmbed(myPublicAPIKey);
- *  embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
- *   console.log('signing complete!'))
- *  });
+ * embed = new BlueInkEmbed(myPublicAPIKey);
+ *
+ * embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
+ *   console.log('signing complete!');
+ * });
+ *
  * @example
- *  embed = new BlueInkEmbed(myPublicAPIKey);
- *  embed.on(BlueInkEmbed.EVENT.ERROR, (eventData) => {
- *   console.log('Signing error occurred.'))
- *   console.log('.'))
- *  });
- * @type {{
- *  LOAD: string,
- *  READY: string,
- *  COMPLETE: string,
- *  AUTH_FAIL: string,
- *  ERROR: string,
- *  TOUCH: string,
- *  AUTH_SUCCESS: string
- * }}s
+ * embed.on(BlueInkEmbed.EVENT.ERROR, (eventData) => {
+ *   console.log('Signing error occurred.');
+ *   console.log(eventData.message);
+ * });
  */
 
-var BLUEINK_EVENT = {
-  /** Any event occurred. Use this if you want to listen for all events with a single callback.s */
+var EVENT = {
+  /**  Any event occurred. Use this if you want to listen for all events with a single callback. */
   ANY: 'any',
 
   /** The initial load of the iFrame content is complete. Note, the documents may not yet be ready to sign. */
   LOAD: 'load',
 
-  /** The documents are ready to sign */
+  /** The documents are ready to sign. */
   READY: 'ready',
 
-  /** The signing is complete */
+  /** The signing is complete. */
   COMPLETE: 'complete',
 
-  /** Signer authentication failed */
+  /** Signer authentication failed. */
   AUTH_FAIL: 'auth_fail',
 
-  /** Signer authentication succeeded. Note, this event is still fired if no authentication options were selected  */
+  /** Signer authentication succeeded. Note, this event is still fired if no authentication options were selected. */
   AUTH_SUCCESS: 'auth_success',
 
-  /** An error that prevents embedded signing from continuing */
+  /** An error that prevents embedded signing from continuing. */
   ERROR: 'error'
 };
-var MIN_PUBLIC_API_KEY_LENGTH = 71;
+
+var MIN_PUBLIC_API_KEY_LENGTH = 40;
 var PUBLIC_API_KEY_PREFIX = 'public_';
-var ALLOWED_MOUNT_OPTIONS = ['debug', 'isTest', 'locale', 'redirectURL'];
+var ALLOWED_MOUNT_OPTIONS = ['class', 'debug', 'isTest', 'locale', 'redirectURL', 'replace'];
 /**
  * Custom Error class thrown for some errors in BlueInkEmbed
  */
@@ -2561,7 +2557,7 @@ function (_Error) {
   return BlueInkEmbedError;
 }(_wrapNativeSuper(Error));
 /**
- * Class that helps create and manage embedded signing iFrames powered by BlueInk eSignatures.
+ * Class that helps create and manage embedded signing iFrames powered by BlueInk.
  * @extends EventEmitter
  */
 
@@ -2571,9 +2567,9 @@ function (_EventEmitter) {
   _inherits(BlueInkEmbed, _EventEmitter);
 
   /**
-   * Create a new BlueInkEmbed object
+   * Create a new BlueInkEmbed instance, which you can use to mount and unmount embedded signing iFrames.
    * @param {string} publicAPIKey - the public API key for your BlueInk API App. This can be obtained
-   *  by logging into your BlueInk Dashboard, or via the BlueInk API v2 at /apps/ or /apps/<app_id>/
+   *  by logging into your BlueInk Dashboard, or via the BlueInk API at /account/
    */
   function BlueInkEmbed(publicAPIKey) {
     var _this2;
@@ -2611,7 +2607,7 @@ function (_EventEmitter) {
         return;
       }
 
-      if (!Object.values(BLUEINK_EVENT).includes(eventType)) {
+      if (!Object.values(EVENT).includes(eventType)) {
         _this2._debug("Received message with unknown eventType \"".concat(eventType, "\". Silently dropping."));
 
         return;
@@ -2619,7 +2615,7 @@ function (_EventEmitter) {
 
       _this2.emit(eventType, event.data);
 
-      _this2.emit(BLUEINK_EVENT.ANY, eventType, event.data);
+      _this2.emit(EVENT.ANY, eventType, event.data);
     });
 
     if (!publicAPIKey) {
@@ -2638,27 +2634,6 @@ function (_EventEmitter) {
     return _this2;
   } // Document the methods from the EventEmitter
 
-  /** @method on
-   * Register a listener for events that occur in the embedded iFrame
-   * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-   *  BlueInkEmbed.EVENT.READY, etc.
-   * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invoked when the event occurs.
-   */
-
-  /** @method off
-   * Remove a previously registered event listener
-   * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-   *  BlueInkEmbed.EVENT.READY, etc.
-   * @param {BlueInkEmbed~eventCallback} callback - The callback function to remove
-   */
-
-  /** @method once
-   * Register a listener for a single occurrence of an event
-   * @param {string} eventType - One of the BlueInkEmbed.EVENT constants, e.g. BlueInkEmbed.EVENT.COMPLETE,
-   *  BlueInkEmbed.EVENT.READY, etc.
-   * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invokeds
-   */
-
   /**
    *
    * @param {string} container - the css selector of the container into which the embedded signing iFrame
@@ -2674,7 +2649,9 @@ function (_EventEmitter) {
    * @param {string} options.locale - set the initial language / locale for the embedded signature iFrame
    * @param {string} options.redirectURL - If provided, the parent page (not the iFrame) will be redirected
    *   to this URL upon successful completion of a signing
-   * @throws {BlueInkEmbedError} - when (1) there is already a mounted BlueInkEmbed iFrame instance,
+   * @param {string} options.replace - If true, the signing iFrame replaces the contents of container, instead
+   *   of being appended to the contents
+   * @throws {BlueInkEmbedError} when (1) there is already a mounted BlueInkEmbed iFrame instance,
    *  (2) the container element does not exist, or (3) the container selector corresponds to more than one element.
    */
 
@@ -2714,7 +2691,12 @@ function (_EventEmitter) {
 
       var processedURL = this._buildFinalURL(embeddedSigningURL, cleanOptions);
 
-      this._iFrameEl = this._createIframe(processedURL, IFRAME_CLASSNAME);
+      var className = cleanOptions.className || IFRAME_CLASSNAME;
+      this._iFrameEl = this._createIframe(processedURL, className);
+
+      if (options.replace) {
+        this._containerEl.innerHTML = '';
+      }
 
       this._containerEl.appendChild(this._iFrameEl);
 
@@ -2824,6 +2806,30 @@ function (_EventEmitter) {
       var url = new URL(embeddedSigningURL);
       return url.origin;
     }
+    /**
+     * Register a listener for events that occur in the embedded iFrame
+     * @method on
+     * @memberof BlueInkEmbed
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
+     * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invoked when the event occurs.
+     */
+
+    /**
+     * Remove a previously registered event listener
+     * @method off
+     * @memberof BlueInkEmbed
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
+     * @param {BlueInkEmbed~eventCallback} callback - The callback function to remove
+     */
+
+    /**
+     * Register a listener for a single occurrence of an event
+     * @method once
+     * @memberof BlueInkEmbed
+     * @param {string} eventType - One of the EVENT constants, e.g. EVENT.COMPLETE, EVENT.READY, etc.
+     * @param {BlueInkEmbed~eventCallback} callback - The callback function that will be invokeds
+     */
+
   }, {
     key: "iFrameEl",
     get: function get() {
@@ -2842,8 +2848,7 @@ function (_EventEmitter) {
 /**
  * An event payload for an error event
  * @typedef {Object} EventAnyData
- * @property {string} eventType - The type of the event. One of BlueInkEmbed.EVENT.COMPLETE,
- *  BlueInkEmbed.EVENT.READY, etc.
+ * @property {string} eventType - The type of the event. One of EVENT.COMPLETE, EVENT.READY, etc.
  * @property {EventErrorData|null} eventData - Additional data for the event, or null.
  */
 
@@ -2856,7 +2861,7 @@ function (_EventEmitter) {
 
 _defineProperty(BlueInkEmbed, "_mounted", false);
 
-_defineProperty(BlueInkEmbed, "EVENT", BLUEINK_EVENT);
+_defineProperty(BlueInkEmbed, "EVENT", EVENT);
 
 _defineProperty(BlueInkEmbed, "Error", BlueInkEmbedError);
 
