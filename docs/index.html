@@ -123,12 +123,12 @@ embed.mount(embedUrl, '#iframe-container');
 // Optionally, unmount the signing iFrame when done
 embed.unmount();
 </code></pre>
-<h3>Fuller Example, with error Handling</h3>
+<h3>Fuller Example, with Error and Event Handling</h3>
 <p>This example shows fetching the embedUrl from the server via
 <a href="https://github.com/axios/axios">axios</a>, and handling errors.</p>
 <pre class="prettyprint source lang-javascript"><code>import BlueInkEmbed from 'blueink-embed-js';
 
-const exampleRequsetData = {
+const exampleRequestData = {
     signerName: 'Frank Ricard',
     signerEmail: 'frank@example.com'
 };
@@ -142,6 +142,18 @@ axios.post('/get-embed-url', exampleRequestData, fd)
         try {
             const embedUrl = response.data.embedUrl;
             const embed = new BlueInkEmbed('YOUR-BLUEINK-PUBLIC-API-KEY');
+            
+            // Setup event listeners to respond to events emitted
+            // by the embedded signing iFrame
+            embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
+                console.log('signing complete!');
+            });
+
+            embed.on(BlueInkEmbed.EVENT.ERROR, (eventData) => {
+                console.log('Signing error occurred.');
+                console.log(eventData.message);
+            });
+
             embed.mount(embedUrl, '#iframe-container');
         } catch(error) {
             // An error could be thrown if the public API key is invalid, 
@@ -156,8 +168,39 @@ axios.post('/get-embed-url', exampleRequestData, fd)
         console.log(message);
     });
 </code></pre>
-<p>See additional documentation for options you can pass when
-calling <code>mount()</code> here.</p>
+<h3>More Resources</h3>
+<ul>
+<li><a href="docs/BlueInkEmbed.html">BlueInkEmbed class and methods</a></li>
+<li><a href="docs/global.html#EVENT">Events emitted by the BlueInkEmbed instance</a></li>
+<li><a href="https://blueink.com/esignature-api/api-docs/">BlueInk API Documentation</a></li>
+</ul>
+<h2>Getting Help / Contributing</h2>
+<p>If you have a BlueInk Account and need help integrating this library into
+your API project, please contact our support team from your BlueInk
+account dashboard.</p>
+<p>If you find issues in this codebase, or have any suggestions for improvement
+please create an issue here on github.</p>
+<p>We welcome contributions and will consider any pull requests.</p>
+<p>If you are making modifications to the library, or running the project,
+locally the following commands should come in handy. We use yarn internally,
+but all of the commands below should work with there <code>npm</code> equivalents.</p>
+<pre class="prettyprint source lang-bash"><code># Run the tests
+$ yarn test
+$ yarn test:coverage
+
+# Build a production, minified version of the library
+$ yarn run build
+
+# Build a development, unminified version of the library
+$ yarn run build:dev
+
+# Run webpack-dev-server, so that the library will be accessible
+# at http://localhost:8080/blueink-embed.js
+$ yarn run devserver
+ 
+# Build the docs
+$ yarn run build:docs
+</code></pre>
 <h2>License</h2>
 <p>MIT</p></article>
     </section>
