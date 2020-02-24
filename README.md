@@ -16,7 +16,7 @@ yarn add @blueink360/blueink-embed-js
 
 From CDN:
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/@blueink360/blueink-embed-js/1.0.1/blueink-embed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/@blueink360/blueink-embed-js/1.1.0/blueink-embed.min.js"></script>
 ```
 
 If including this library directly with a script tag, the `BlueInkEmbed`
@@ -95,8 +95,8 @@ axios.post('/get-embed-url', exampleRequestData, fd)
 
 ### More Resources
 
-* [BlueInkEmbed class and methods](docs/BlueInkEmbed.html)
-* [Events emitted by the BlueInkEmbed instance](docs/global.html#EVENT)
+* [BlueInkEmbed class and methods](https://blueinkhq.github.io/blueink-embed-js/BlueInkEmbed.html)
+* [Events emitted by the BlueInkEmbed instance](https://blueinkhq.github.io/blueink-embed-js/global.html#EVENT)
 * [BlueInk API Documentation](https://blueink.com/esignature-api/api-docs/)
 
 ## Getting Help / Contributing
