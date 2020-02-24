@@ -44,7 +44,7 @@ embed.mount(embedUrl, '#iframe-container');
 embed.unmount();
 ```
 
-### Fuller Example, with error Handling
+### Fuller Example, with Error and Event Handling
 
 This example shows fetching the embedUrl from the server via 
 [axios](https://github.com/axios/axios), and handling errors.
@@ -66,6 +66,18 @@ axios.post('/get-embed-url', exampleRequestData, fd)
         try {
             const embedUrl = response.data.embedUrl;
             const embed = new BlueInkEmbed('YOUR-BLUEINK-PUBLIC-API-KEY');
+            
+            // Setup event listeners to respond to events emitted
+            // by the embedded signing iFrame
+            embed.on(BlueInkEmbed.EVENT.COMPLETE, () => {
+                console.log('signing complete!');
+            });
+
+            embed.on(BlueInkEmbed.EVENT.ERROR, (eventData) => {
+                console.log('Signing error occurred.');
+                console.log(eventData.message);
+            });
+
             embed.mount(embedUrl, '#iframe-container');
         } catch(error) {
             // An error could be thrown if the public API key is invalid, 
