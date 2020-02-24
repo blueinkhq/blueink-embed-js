@@ -95,8 +95,8 @@ axios.post('/get-embed-url', exampleRequestData, fd)
 
 ### More Resources
 
-* [BlueInkEmbed class and methods](docs/BlueInkEmbed.html)
-* [Events emitted by the BlueInkEmbed instance](docs/global.html#EVENT)
+* [BlueInkEmbed class and methods](https://blueinkhq.github.io/blueink-embed-js/BlueInkEmbed.html)
+* [Events emitted by the BlueInkEmbed instance](https://blueinkhq.github.io/blueink-embed-js/global.html#EVENT)
 * [BlueInk API Documentation](https://blueink.com/esignature-api/api-docs/)
 
 ## Getting Help / Contributing
