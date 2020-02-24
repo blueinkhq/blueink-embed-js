@@ -16,7 +16,7 @@ yarn add @blueink360/blueink-embed-js
 
 From CDN:
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/@blueink360/blueink-embed-js/1.0.1/blueink-embed.min.js" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/@blueink360/blueink-embed-js/1.0.1/blueink-embed.min.js"></script>
 ```
 
 If including this library directly with a script tag, the `BlueInkEmbed`
