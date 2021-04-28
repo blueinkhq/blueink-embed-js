@@ -326,10 +326,10 @@ class BlueInkEmbed extends EventEmitter {
  */
 
 /**
- * An event payload for an error event
+ * An event payload for a signing event
  * @typedef {Object} EventAnyData
  * @property {string} eventType - The type of the event. One of EVENT.COMPLETE, EVENT.READY, etc.
- * @property {EventErrorData|null} eventData - Additional data for the event, or null.
+ * @property {EventErrorData|null} eventData - Additional data for the event, or {}.
  */
 
 /**
