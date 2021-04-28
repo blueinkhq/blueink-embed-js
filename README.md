@@ -25,10 +25,10 @@ class will be added to the global namespace.
 
 ## Usage
 
-To use the library, you will need a public API key from you BlueInk account.
+To use the library, you will need a public API key from your BlueInk account.
 If you do not have a BlueInk account, you can 
 [create one here](https://blueink.com/esignature-api/). You can send
-unlimited test Bundles for free, while developing your eSignature integration.
+unlimited test Bundles for free while developing your eSignature integration.
 
 ### Quickstart
  
@@ -61,7 +61,7 @@ const exampleRequestData = {
 // at /get-embed-url and will create a new Bundle and return
 // an embedded signing URL. See the BlueInk API docs for examples.
 
-axios.post('/get-embed-url', exampleRequestData, fd)
+axios.post('/get-embed-url', exampleRequestData)
     .then(response => {
         try {
             const embedUrl = response.data.embedUrl;
