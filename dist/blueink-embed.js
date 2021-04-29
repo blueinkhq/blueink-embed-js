@@ -4131,10 +4131,10 @@ _defineProperty(BlueInkEmbed, "Error", BlueInkEmbedError);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styles.css */ "./css/styles.css");
 /* harmony import */ var styles_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styles_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var embed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! embed */ "./src/embed.js");
+/* harmony import */ var _embed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./embed */ "./src/embed.js");
 
 
-/* harmony default export */ __webpack_exports__["default"] = (embed__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (_embed__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 /***/ }),
 
