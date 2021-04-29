@@ -1,9 +1,8 @@
 {
   "name": "@blueink360/blueink-embed-js",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Embedded eSignatures with BlueInk",
   "main": "dist/blueink-embed.js",
-  "module": "src/index.js",
   "repository": "git@github.com:blueinkhq/blueink-embed-js.git",
   "author": {
     "name": "BlueInk",
