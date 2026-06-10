@@ -3775,6 +3775,9 @@ var EVENT = {
   /** Signer authentication succeeded. Note, this event is still fired if no authentication options were selected. */
   AUTH_SUCCESS: 'auth_success',
 
+  /** The session has finished. */
+  FINISHED: 'finished',
+
   /** An error that prevents embedded signing from continuing. */
   ERROR: 'error'
 };
